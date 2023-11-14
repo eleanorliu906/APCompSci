@@ -34,7 +34,7 @@ public class TicTacToe
         int curr = p;
         boolean valid = false;
 
-        while (!valid){
+        while (!valid){ // only loop this if we have an invalid output
             System.out.println("Player " + curr + ": Please input the row,column (without space) you want to fill");
             String s = sc.nextLine();
             if (s.length() >= 2 && Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
@@ -47,9 +47,7 @@ public class TicTacToe
                         if (currplayer == 1) currplayer = 2;
                         else currplayer = 1;
                         break;
-                    } else {
-                        System.out.println("The space you have indicated is already filled");
-                    }
+                    } else System.out.println("The space you have indicated is already filled");
                 } else {
                     System.out.println("Invalid Input");
                 }
@@ -78,7 +76,6 @@ public class TicTacToe
                 if (winPlayer == 0 ) winPlayer = board [i][1];
             }
         }
-
         for(int j = 0; j < 3; j++) { // check for columns 
             if (board[0][j] == board [1][j] && board [1][j] == board[2][j]) {
                 win = true;
@@ -96,7 +93,24 @@ public class TicTacToe
             continueGame = false;
             congratulate(winPlayer);
         }
+
+        boolean full = true;
+        for(int i = 0; i < 3; i++){
+            for(int j=0; j<3; j++){
+                if ( board[i][j] == 0) full = false;
+            }
+        }
+
+        if (full && !win){
+            tie();
+            continueGame = false;
+            win = true;
+        }
     }  
+
+    public static void tie(){
+        System.out.println("The game is tied!");
+    }
 
     public static void congratulate(int p){
         System.out.println("Congratulations to Player " + p + " for winning this round of Tic Tac Toe!");
