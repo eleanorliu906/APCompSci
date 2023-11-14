@@ -11,6 +11,7 @@ public class TicTacToe
     static int[] p1 = new int[2];
     static int[] p2 = new int[2];
     static boolean win = false;
+    static int round = 1;
 
     public static void main(String[] args){
         setup();
@@ -33,22 +34,25 @@ public class TicTacToe
         p1valid  = false;
         p2valid  = false;
         currplayer = true;
+        continueGame = true;
     }
 
     public static void promptInput(boolean p){
         if (p){
             while (!p1valid){
                 System.out.println("Player 1: Please input the row,column (without space) you want tofill");
-                int[] a = readCoordinate(sc.nextLine());
-
-                if (a[0] < 3 &&  a[1] < 3) {
-                    if (board[a[0]][a[1]] == 0){
-                        board[a[0]][a[1]] = 1;
-                        printBoard();
-                        p1valid = true;
-                        p = !p;
-                        currplayer = !currplayer;
-                        break;
+                String s = sc.nextLine();
+                if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
+                    int[] a = readCoordinate(s);
+                    if (a[0] < 3 &&  a[1] < 3) {
+                        if (board[a[0]][a[1]] == 0){
+                            board[a[0]][a[1]] = 1;
+                            printBoard();
+                            p1valid = true;
+                            p = !p;
+                            currplayer = !currplayer;
+                            break;
+                        } 
                     } else {
                         System.out.println("Invalid Input");
                     }
@@ -59,14 +63,21 @@ public class TicTacToe
         } else {
             while (!p2valid){
                 System.out.println("Player 2: Please input the row,column (without space) you want tofill");
-
-                int[] a = readCoordinate(sc.nextLine());
-                if (board[a[0]][a[1]] == 0 && a[0] < 3 &&  a[1] < 3) {
-                    board[a[0]][a[1]] = 2;
-                    p2valid = true;
-                    printBoard();
-                    p = !p;
-                    currplayer = !currplayer;
+                String s = sc.nextLine();
+                if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
+                    int[] a = readCoordinate(s);
+                    if (a[0] < 3 &&  a[1] < 3) {
+                        if (board[a[0]][a[1]] == 0){
+                            board[a[0]][a[1]] = 2;
+                            printBoard();
+                            p2valid = true;
+                            p = !p;
+                            currplayer = !currplayer;
+                            break;
+                        } 
+                    } else {
+                        System.out.println("Invalid Input");
+                    }
                 } else {
                     System.out.println("Invalid Input");
                 }
@@ -78,6 +89,7 @@ public class TicTacToe
     }
 
     public static void printBoard(){
+        System.out.println("ROUND " + round);
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 System.out.print( "[" + board[i][j] + "] ");
@@ -93,7 +105,6 @@ public class TicTacToe
             if (board[i][0] == board [i][1] && board [i][1] == board[i][2]) {
                 win = true;
                 if (winPlayer == 0 ) winPlayer = board [i][1];
-                //System.out.println(win + " " + winPlayer);
             }
         }
 
@@ -101,17 +112,15 @@ public class TicTacToe
             if (board[0][j] == board [1][j] && board [1][j] == board[2][j]) {
                 win = true;
                 if (winPlayer == 0 ) winPlayer = board [0][j];
-                //System.out.println(win + " " + winPlayer);
             }
         }
         //check diagonals
         if ((board[0][0] == board[1][1] && board[1][1] == board[2][2]) || (board[0][2] == board[1][1] && board[1][1] == board[2][0])) {
             win = true;
             if (winPlayer == 0 )winPlayer = board[1][1];
-            //System.out.println(win + " " + winPlayer);
         }
+        // make sure it's not the "0" that repeats
         if (winPlayer == 0) win = false;
-        //System.out.println(win + " " + winPlayer);
         if (win) {
             continueGame = false;
             congratulate(winPlayer);
@@ -126,7 +135,6 @@ public class TicTacToe
         int[] a = new int[2];
         a[0] = Integer.parseInt(s.substring(0, 1))-1;
         a[1] = Integer.parseInt(s.substring(2, 3))-1;
-        // System.out.println(a[0] + " " + a[1]);
         return a;
     }
 
@@ -135,8 +143,8 @@ public class TicTacToe
         String s = sc.nextLine();
         s = s.toLowerCase();
         if (s.equals("y")) {
+            round++;
             setup();
-            continueGame = true;
         }
         else if (s.equals("n")){
             System.out.println("Have a nice day!");
