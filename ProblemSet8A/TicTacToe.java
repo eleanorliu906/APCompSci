@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class TicTacToe
 {
     static boolean continueGame = true;
-    static boolean currplayer = true; // true-player1; false-player2
+    static int currplayer = 1; 
     static int[][] board = new int[3][3];
     static Scanner sc = new Scanner(System.in);
     static boolean win = false;
@@ -26,30 +26,30 @@ public class TicTacToe
                 board[i][j] = 0;
             }
         }
-        currplayer = true;
+        currplayer = 1;
         continueGame = true;
     }
 
-    public static void promptInput(boolean p){ // pass in who is the current player
-        int curr = 0;
+    public static void promptInput(int p){ // pass in who is the current player
+        int curr = p;
         boolean valid = false;
-        if (p) curr = 1;
-        else curr = 2;
 
         while (!valid){
-            System.out.println("Player " + curr + ": Please input the row,column (without space) you want tofill");
+            System.out.println("Player " + curr + ": Please input the row,column (without space) you want to fill");
             String s = sc.nextLine();
-            if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
+            if (s.length() >= 2 && Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
                 int[] a = readCoordinate(s);
                 if (a[0] < 3 &&  a[1] < 3) {
                     if (board[a[0]][a[1]] == 0){
                         board[a[0]][a[1]] = curr;
                         printBoard();
                         valid = true;
-                        p = !p;
-                        currplayer = !currplayer;
+                        if (currplayer == 1) currplayer = 2;
+                        else currplayer = 1;
                         break;
-                    } 
+                    } else {
+                        System.out.println("The space you have indicated is already filled");
+                    }
                 } else {
                     System.out.println("Invalid Input");
                 }
