@@ -3,19 +3,14 @@ import java.util.Scanner;
 public class TicTacToe
 {
     static boolean continueGame = true;
-    static boolean p1valid  = false;
-    static boolean p2valid  = false;
     static boolean currplayer = true; // true-player1; false-player2
     static int[][] board = new int[3][3];
     static Scanner sc = new Scanner(System.in);
-    static int[] p1 = new int[2];
-    static int[] p2 = new int[2];
     static boolean win = false;
     static int round = 1;
 
     public static void main(String[] args){
         setup();
-
         while (continueGame){
             promptInput(currplayer);
             checkWin();
@@ -31,61 +26,37 @@ public class TicTacToe
                 board[i][j] = 0;
             }
         }
-        p1valid  = false;
-        p2valid  = false;
         currplayer = true;
         continueGame = true;
     }
 
-    public static void promptInput(boolean p){
-        if (p){
-            while (!p1valid){
-                System.out.println("Player 1: Please input the row,column (without space) you want tofill");
-                String s = sc.nextLine();
-                if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
-                    int[] a = readCoordinate(s);
-                    if (a[0] < 3 &&  a[1] < 3) {
-                        if (board[a[0]][a[1]] == 0){
-                            board[a[0]][a[1]] = 1;
-                            printBoard();
-                            p1valid = true;
-                            p = !p;
-                            currplayer = !currplayer;
-                            break;
-                        } 
-                    } else {
-                        System.out.println("Invalid Input");
-                    }
+    public static void promptInput(boolean p){ // pass in who is the current player
+        int curr = 0;
+        boolean valid = false;
+        if (p) curr = 1;
+        else curr = 2;
+
+        while (!valid){
+            System.out.println("Player " + curr + ": Please input the row,column (without space) you want tofill");
+            String s = sc.nextLine();
+            if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
+                int[] a = readCoordinate(s);
+                if (a[0] < 3 &&  a[1] < 3) {
+                    if (board[a[0]][a[1]] == 0){
+                        board[a[0]][a[1]] = curr;
+                        printBoard();
+                        valid = true;
+                        p = !p;
+                        currplayer = !currplayer;
+                        break;
+                    } 
                 } else {
                     System.out.println("Invalid Input");
                 }
-            }
-        } else {
-            while (!p2valid){
-                System.out.println("Player 2: Please input the row,column (without space) you want tofill");
-                String s = sc.nextLine();
-                if (Character.isDigit(s.charAt(0)) && Character.isDigit(s.charAt(2))) {
-                    int[] a = readCoordinate(s);
-                    if (a[0] < 3 &&  a[1] < 3) {
-                        if (board[a[0]][a[1]] == 0){
-                            board[a[0]][a[1]] = 2;
-                            printBoard();
-                            p2valid = true;
-                            p = !p;
-                            currplayer = !currplayer;
-                            break;
-                        } 
-                    } else {
-                        System.out.println("Invalid Input");
-                    }
-                } else {
-                    System.out.println("Invalid Input");
-                }
+            } else {
+                System.out.println("Invalid Input");
             }
         }
-
-        p1valid = false;
-        p2valid = false;
     }
 
     public static void printBoard(){
