@@ -73,13 +73,14 @@ public class TicTacToe
         for(int i = 0; i < 3; i++) { // check for rows 
             if (board[i][0] == board [i][1] && board [i][1] == board[i][2]) {
                 win = true;
-                if (winPlayer == 0 ) winPlayer = board [i][1];
+                if (winPlayer == 0) winPlayer = board [i][1]; // only save the winning player if the current one is 0
+                // prevents program from saving "0" as the winning player if the program identifies a row of 0
             }
         }
         for(int j = 0; j < 3; j++) { // check for columns 
             if (board[0][j] == board [1][j] && board [1][j] == board[2][j]) {
                 win = true;
-                if (winPlayer == 0 ) winPlayer = board [0][j];
+                if (winPlayer == 0) winPlayer = board [0][j];
             }
         }
         //check diagonals
