@@ -65,6 +65,7 @@ public class Fraction
 
     /**
      * To get the Numerator of the Fraction
+     * @return  returns a int, the value of the numerator
      */
     public int getNum(){
         return n;
@@ -72,6 +73,7 @@ public class Fraction
 
     /**
      * To get the Denominator of the Fraction
+     * @return returns a int, the value of the denominator
      */
     public int getDenom(){
         return d;
@@ -79,6 +81,7 @@ public class Fraction
 
     /**
      * To convert the value of the Fraction to a String
+     * @return returns a String, the value of the fraction expressed in a string
      */
     public String toString(){
         return n + "/" + d;
@@ -86,6 +89,7 @@ public class Fraction
 
     /**
      * To convert the value of the Fraction to a Double
+     * @return returns a double, the value of the fraction expressed in a double
      */
     public double toDouble(){
         return (double) n/d;
@@ -128,6 +132,7 @@ public class Fraction
      * To multipy two fractions
      * @param f1    The first fraction
      * @param f2    The second fraction
+     * @return     Returns a fraction, which is f1 and f2 multiplied
      */
     public static Fraction multiply(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
@@ -141,6 +146,7 @@ public class Fraction
      * To divide two fractions
      * @param f1    The first fraction
      * @param f2    The second fraction
+     * @return     Returns a fraction, which is f1 and f2 divided
      */
     public static Fraction divide(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
@@ -154,6 +160,7 @@ public class Fraction
      * To add two fractions
      * @param f1    The first fraction
      * @param f2    The second fraction
+     * @return     Returns a fraction, which is f1 and f2 added
      */
     public static Fraction add(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
@@ -168,6 +175,7 @@ public class Fraction
      * To subtract two fractions
      * @param f1    The first fraction
      * @param f2    The second fraction
+     * @return     Returns a fraction, which is f1 and f2 subtracted
      */
     public static Fraction subtract(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
@@ -182,6 +190,7 @@ public class Fraction
      * To obtain the lowest common multiple of two values
      * @param a    The first value
      * @param b    The second value
+     * @return     Returns a int, which is the lowest common multiple of a and b
      */
     public static int lcm(int a, int b){ // LCM - Least Common Multiple
         int l = 0;
