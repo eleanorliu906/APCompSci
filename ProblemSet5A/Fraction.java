@@ -164,9 +164,8 @@ public class Fraction
      */
     public static Fraction add(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
-        int lcm = lcm(f1.getDenom(), f2.getDenom());
-        f.setDenom(lcm);
-        f.setNum(f1.getNum()*(lcm/f1.getDenom()) + f2.getNum()*(lcm/f2.getDenom()));
+        f.setDenom(f1.getDenom()*f2.getDenom());
+        f.setNum(f1.getNum()*f2.getDenom() + f2.getNum()*f1.getDenom());
         f.reduce();
         return f;
     }
@@ -179,30 +178,15 @@ public class Fraction
      */
     public static Fraction subtract(Fraction f1, Fraction f2){
         Fraction f = new Fraction();
-        int lcm = lcm(f1.getDenom(), f2.getDenom());
-        f.setDenom(lcm);
-        f.setNum(f1.getNum()*(lcm/f1.getDenom()) - f2.getNum()*(lcm/f2.getDenom()));
+        f.setDenom(f1.getDenom()*f2.getDenom());
+        f.setNum(f1.getNum()*f2.getDenom() - f2.getNum()*f1.getDenom());
         f.reduce();
         return f;
     }
 
-    /**
-     * To obtain the lowest common multiple of two values
-     * @param a    The first value
-     * @param b    The second value
-     * @return     Returns a int, which is the lowest common multiple of a and b
-     */
-    public static int lcm(int a, int b){ // LCM - Least Common Multiple
-        int l = 0;
-        for(int i = 1; i <= a*b; i++){
-            if (i % a == 0 && i % b == 0) return i;
-        }
-        return a*b;
-    }
-
     public static void main(String[] args){
-        Fraction f1 = new Fraction("2/9");
-        Fraction f2 = new Fraction(1, 6);
+        Fraction f1 = new Fraction("1/9");
+        Fraction f2 = new Fraction(2, 7);
         System.out.println("Fraction 1: " + f1.toString());
         System.out.println("Fraction 2: " + f2.toString());
         System.out.println("Addition: " + Fraction.add(f1, f2));
