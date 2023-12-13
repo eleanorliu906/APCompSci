@@ -129,16 +129,6 @@ public class Fraction
             }
             i++;
         }
-
-        while (i <= n){
-            if (d % i == 0 && n % i == 0){
-                d /= i;
-                n /= i;
-                i = 1;
-            }
-            i++;
-        }
-
         if (n==0) d = 1; 
     }
 
