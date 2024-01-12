@@ -11,7 +11,17 @@ public class Square extends Rectangle{
     }
         
     public void setSide(double s){
+        super.setLength(s);
+        super.setWidth(s);
         this.side = s;
+    }
+    
+    public void setLength(double s){
+        setSide(s);
+    }
+    
+    public void setWidth(double s){
+        setSide(s);
     }
     
     public double calculateArea(){
